@@ -3,7 +3,6 @@
     "name": "umbahin",
     "slug": "umbahin",
     "version": "1.0.0",
-
     "scheme": "umbahin",
     "web": {
       "bundler": "metro",
@@ -14,7 +13,6 @@
     "experiments": {
       "typedRoutes": true
     },
-
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
