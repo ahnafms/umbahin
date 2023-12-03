@@ -1,12 +1,13 @@
 // @ts-nocheck
 
 import { Link, router } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Pressable } from 'react-native';
 import { YStack, Spinner, Text, XStack, useMedia, Button, Input, Label } from 'tamagui';
 
-import api from './lib/api';
+import api from '../lib/api';
+import { setStore } from '../lib/store';
 
 export default function Page() {
   const media = useMedia();
@@ -22,6 +23,7 @@ export default function Page() {
         successMessage: 'login successful',
       })
       .then((data) => {
+        setStore('token', data.data.data.token);
         router.push('/(homepage)/');
       })
       .catch((err) => {

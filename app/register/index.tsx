@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -5,7 +6,7 @@ import { Pressable } from 'react-native';
 import DropdownSelect from 'react-native-input-select';
 import { YStack, Spinner, Text, XStack, useMedia, Form, Button, Input, Label } from 'tamagui';
 
-import api from '../lib/api';
+import api from '../../lib/api';
 
 export default function Page() {
   const media = useMedia();
@@ -22,7 +23,7 @@ export default function Page() {
           errorMessage: 'Failed to register!',
           successMessage: 'Register successful',
         })
-        .then((data) => {
+        .then(() => {
           router.push('/');
         })
         .catch((err) => {
@@ -35,7 +36,7 @@ export default function Page() {
           errorMessage: 'Failed to register!',
           successMessage: 'Register successful',
         })
-        .then((data) => {
+        .then(() => {
           router.push('/');
         })
         .catch((err) => {

@@ -1,6 +1,8 @@
-import { YStack, H6, ScrollView } from 'tamagui';
+import { useEffect, useState } from 'react';
+import { YStack, H6, ScrollView, Text } from 'tamagui';
 
 import CardOrder from '../../components/CardOrder';
+import { getStore } from '../../lib/store';
 
 export default function TabTwoScreen() {
   return (
@@ -15,10 +17,6 @@ export default function TabTwoScreen() {
           Current Location
         </H6>
         <YStack flex={1} paddingBottom="$12" flexDirection="column" gap="24" ai="flex-start">
-          <CardOrder />
-          <CardOrder />
-          <CardOrder />
-          <CardOrder />
           <CardOrder />
         </YStack>
       </ScrollView>
