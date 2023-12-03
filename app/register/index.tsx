@@ -17,7 +17,11 @@ export default function Page() {
   }, [status]);
   return (
     <XStack flex={1} ai="center" px="$5" bg="#ffffff">
-      <YStack space="$6" width="100%">
+      <YStack
+        animation="quick"
+        enterStyle={{ scale: 1.2, y: -8, opacity: 0 }}
+        space="$6"
+        width="100%">
         <YStack space="$2" height={100}>
           <Text fontWeight="700" fontSize={media.md ? 36 : 18} marginBottom={10}>
             Register
@@ -27,26 +31,24 @@ export default function Page() {
         <YStack space="$1" width="100%">
           <Form onSubmit={() => setStatus('submitting')}>
             <YStack space="$2" height={100}>
-              <Label color="black" htmlFor="name">
+              <Label color="black" htmlFor="name_regis">
                 Name
               </Label>
-              <Input color="black" backgroundColor="white" id="name" placeholder="name" />
+              <Input color="black" backgroundColor="white" id="name_regis" placeholder="name" />
             </YStack>
             <YStack space="$2" height={100}>
-              <Label color="black" htmlFor="email">
+              <Label color="black" htmlFor="email_regis">
                 Email
               </Label>
-              <Input color="black" backgroundColor="white" id="email" placeholder="email" />
+              <Input color="black" backgroundColor="white" id="email_regis" placeholder="email" />
             </YStack>
             <YStack space="$2" height={100}>
-              <Label color="black" htmlFor="password">
-                Password
-              </Label>
+              <Label color="black">Password</Label>
               <Input
                 secureTextEntry
                 color="black"
                 backgroundColor="white"
-                id="password"
+                id="password_regis"
                 placeholder="password"
               />
             </YStack>

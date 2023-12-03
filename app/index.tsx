@@ -17,7 +17,11 @@ export default function Page() {
   }, [status]);
   return (
     <XStack flex={1} ai="center" px="$5" bg="#ffffff" position="relative">
-      <YStack space="$6" width="100%">
+      <YStack
+        animation="quick"
+        enterStyle={{ scale: 1.2, y: -8, opacity: 0 }}
+        space="$6"
+        width="100%">
         <YStack space="$2" height={100}>
           <Text fontWeight="700" fontSize={media.md ? 36 : 18} marginBottom={10}>
             Let's get started
@@ -33,14 +37,14 @@ export default function Page() {
               <Input color="black" backgroundColor="white" id="email" placeholder="email" />
             </YStack>
             <YStack space="$2" height={100}>
-              <Label color="black" htmlFor="password_regis">
+              <Label color="black" htmlFor="password">
                 Password
               </Label>
               <Input
                 secureTextEntry
                 color="black"
                 backgroundColor="white"
-                id="password_regis"
+                id="password"
                 placeholder="password"
               />
             </YStack>
