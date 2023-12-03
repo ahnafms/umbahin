@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
 import { YStack, Spinner, Text, XStack, useMedia, Form, Button, Input, Label } from 'tamagui';
@@ -16,16 +16,22 @@ export default function Page() {
     }
   }, [status]);
   return (
-    <XStack flex={1} ai="center" px="$5" bg="#ffffff" position="relative">
+    <XStack flex={1} ai="center" px="$5" bg="#ffffff">
       <YStack space="$6" width="100%">
         <YStack space="$2" height={100}>
           <Text fontWeight="700" fontSize={media.md ? 36 : 18} marginBottom={10}>
-            Let's get started
+            Register
           </Text>
-          <Text fontSize={20}>Login into your account</Text>
+          <Text fontSize={20}>Create new account for you</Text>
         </YStack>
         <YStack space="$1" width="100%">
           <Form onSubmit={() => setStatus('submitting')}>
+            <YStack space="$2" height={100}>
+              <Label color="black" htmlFor="name">
+                Name
+              </Label>
+              <Input color="black" backgroundColor="white" id="name" placeholder="name" />
+            </YStack>
             <YStack space="$2" height={100}>
               <Label color="black" htmlFor="email">
                 Email
@@ -33,22 +39,22 @@ export default function Page() {
               <Input color="black" backgroundColor="white" id="email" placeholder="email" />
             </YStack>
             <YStack space="$2" height={100}>
-              <Label color="black" htmlFor="password_regis">
+              <Label color="black" htmlFor="password">
                 Password
               </Label>
               <Input
                 secureTextEntry
                 color="black"
                 backgroundColor="white"
-                id="password_regis"
+                id="password"
                 placeholder="password"
               />
             </YStack>
-            <Text textAlign="right" fontWeight="700">
-              Forget password?
-            </Text>
+            <Text textAlign="right">Forget your password?</Text>
             <Form.Trigger marginTop="$4" asChild disabled={status !== 'off'}>
-              <Button icon={status === 'submitting' ? () => <Spinner /> : undefined}>Login</Button>
+              <Button icon={status === 'submitting' ? () => <Spinner /> : undefined}>
+                Register
+              </Button>
             </Form.Trigger>
           </Form>
         </YStack>
@@ -63,11 +69,9 @@ export default function Page() {
         justifyContent="center"
         alignItems="center">
         <Text>Don't have an account?</Text>
-        <Link href="/register/" asChild>
-          <Pressable>
-            <Text fontWeight="bold">Register</Text>
-          </Pressable>
-        </Link>
+        <Pressable onPress={() => router.push('/')}>
+          <Text fontWeight="bold">Login</Text>
+        </Pressable>
       </XStack>
     </XStack>
   );
