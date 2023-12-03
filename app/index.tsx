@@ -22,11 +22,9 @@ export default function Page() {
         successMessage: 'login successful',
       })
       .then((data) => {
-        console.log('ini thenll', data);
         router.push('/(homepage)/');
       })
       .catch((err) => {
-        console.log('ini err');
         return err;
       });
     setStatus('');
@@ -45,7 +43,7 @@ export default function Page() {
           </Text>
           <Text fontSize={20}>Login into your account</Text>
         </YStack>
-        <YStack space="$1" width="100%">
+        <YStack width="100%">
           <YStack space="$2" height={100}>
             <Label color="black" htmlFor="email">
               Email
@@ -58,6 +56,7 @@ export default function Page() {
                   value={value}
                   color="black"
                   backgroundColor="white"
+                  autoCapitalize="none"
                   id="email"
                   placeholder="email"
                   onChangeText={(value) => onChange(value)}
@@ -78,6 +77,7 @@ export default function Page() {
                   secureTextEntry
                   color="black"
                   backgroundColor="white"
+                  autoCapitalize="none"
                   id="password"
                   placeholder="password"
                   onChangeText={(value) => onChange(value)}
@@ -85,7 +85,7 @@ export default function Page() {
               )}
             />
           </YStack>
-          <Text textAlign="right" fontWeight="700">
+          <Text textAlign="right" mb="$3" fontWeight="700">
             Forget password?
           </Text>
           <Button
