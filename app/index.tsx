@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
 import { YStack, Spinner, Text, XStack, useMedia, Form, Button, Input, Label } from 'tamagui';
@@ -12,6 +12,7 @@ export default function Page() {
       const timer = setTimeout(() => setStatus('off'), 2000);
       return () => {
         clearTimeout(timer);
+        router.push('/(homepage)/');
       };
     }
   }, [status]);
