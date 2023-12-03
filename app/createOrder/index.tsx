@@ -61,13 +61,13 @@ export default function CreateOrderPage() {
 
   return (
     <XStack flex={1} ai="center" px="$5" bg="#ffffff">
-      <YStack width="100%" space="$4" align="center">
+      <YStack width="100%" space="$4" ai="center">
         <Text fontWeight="700" fontSize={media.md ? 36 : 18}>
-          Roumah Laundry
+        Umbahin
         </Text>
 
         <XStack width="100%" space="$3">
-          <Form flex={1} width={media.md ? '50%' : '70%'} style={{ minWidth: 200, maxWidth: media.md ? '50%' : '70%' }}>
+  <Form flex={1} width={media.md ? '50%' : '70%'} style={{ minWidth: 200, maxWidth: media.md ? '50%' : '70%' }} onSubmit={() => {}}>
             <YStack space="$2" width="90%">
               <Label color="black" htmlFor="locationInput">
                 Location
@@ -81,7 +81,7 @@ export default function CreateOrderPage() {
             </YStack>
           </Form>
 
-          <Form flex={1} width={media.md ? '50%' : '70%'} style={{ minWidth: 200, maxWidth: media.md ? '50%' : '70%' }}>
+  <Form flex={1} width={media.md ? '50%' : '70%'} style={{ minWidth: 200, maxWidth: media.md ? '50%' : '70%' }} onSubmit={() => {}}>
             <YStack space="$2" width="75%">
               <Label color="black" htmlFor="ratingInput">
                 Rating
@@ -90,7 +90,7 @@ export default function CreateOrderPage() {
                 id="ratingInput"
                 onChange={(e) => setRating(Number(e.target.value))}
                 value={rating}
-                style={{ width: '100%', padding: 10 }}
+      style={{ width: '100%', padding: 13, borderRadius: 5 }}
               >
                 <option value="1">1 Star</option>
                 <option value="2">2 Stars</option>
@@ -102,32 +102,31 @@ export default function CreateOrderPage() {
           </Form>
         </XStack>
 
-        {/* Add Category Dropdown */}
-        <YStack width="100%" space="$2">
-          <Form flex={1} width={media.md ? '50%' : '100%'} style={{ minWidth: 200, maxWidth: media.md ? '50%' : '100%' }}>
-            <YStack space="$2" width="100%">
-              <Label color="black" htmlFor="categoryInput">
-                Category
-              </Label>
-              <select
-                id="categoryInput"
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                value={selectedCategory}
-                style={{ width: '100%', padding: 10 }}
-              >
-                <option value="">Select a category</option>
-                {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </YStack>
-          </Form>
-          <Button onClick={addItem} disabled={!selectedCategory}>
-            Add Category
-          </Button>
-        </YStack>
+       <YStack width="100%" space="$4" ai="center">
+  <Form flex={1} width={media.md ? '50%' : '70%'} style={{ minWidth: 200, maxWidth: media.md ? '50%' : '70%'}} onSubmit={() => {}}>
+    <YStack space="$" width="100%">
+      <Label color="black" htmlFor="categoryInput">
+        Category
+      </Label>
+      <select
+        id="categoryInput"
+        onChange={(e) => setSelectedCategory(e.target.value)}
+        value={selectedCategory}
+        style={{ width: '100%', padding: 10 }}
+      >
+        <option value="">Select a category</option>
+        {categories.map((category) => (
+          <option key={category} value={category}>
+            {category}
+          </option>
+        ))}
+      </select>
+    </YStack>
+  </Form>
+  <Button onPress={addItem} disabled={!selectedCategory}>
+    Add Category
+  </Button>
+</YStack>
 
         {/* Order List */}
         <YStack width="100%" space="$2">
