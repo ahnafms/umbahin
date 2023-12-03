@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { YStack, H6, ScrollView, Text } from 'tamagui';
+import { YStack, H6, ScrollView, Text, XStack } from 'tamagui';
 
 import CardOrder from '../../components/CardOrder';
 import { getStore } from '../../lib/store';
@@ -11,11 +11,17 @@ export default function TabTwoScreen() {
       flex={1}
       alignItems="flex-start"
       justifyContent="flex-start"
-      gap="$4">
+      gap="$4"
+      >
       <ScrollView px={16} paddingTop="$11">
-        <H6 paddingBottom="$5" fontWeight="900" color="#969AAB">
-          Current Location
-        </H6>
+       
+        <XStack style={{ 
+          backgroundColor: "white"
+         }}>
+          <H6 paddingBottom="$5" fontWeight="900" color="black">
+            Current Location
+          </H6>
+        </XStack>
         <YStack flex={1} paddingBottom="$12" flexDirection="column" gap="24" ai="flex-start">
           <CardOrder />
         </YStack>
