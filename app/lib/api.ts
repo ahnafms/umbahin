@@ -2,7 +2,7 @@
 // @ts-nocheck
 
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast/headless';
 
 const baseURL = 'https://laundry-app-backend.vercel.app/api';
 
@@ -22,7 +22,7 @@ api.defaults.withCredentials = false;
 
 api.interceptors.request.use(async (config) => {
   if (config.toastify) {
-    toastId = toast.loading(config.loadingMessage || 'Loading...');
+    toastId = toast.loading(config.loadingMessage || 'Loading...', { icon: '👻' });
   }
   return config;
 });
@@ -30,13 +30,16 @@ api.interceptors.request.use(async (config) => {
 api.interceptors.response.use(
   (response) => {
     if (response.config.toastify) {
-      toast.success(response.config.successMessage || 'Success', { id: toastId });
+      toast.success(response.config.successMessage || 'Success', { id: toastId, icon: '🤩' });
     }
     return response;
   },
   (error) => {
     if (error.config.toastify) {
-      toast.error(error.config.errorMessage || 'Fetching data failed...', { id: toastId });
+      toast.error(error.config.errorMessage || 'Fetching data failed...', {
+        id: toastId,
+        icon: '🤡',
+      });
     }
     return Promise.reject(error);
   }

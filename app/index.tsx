@@ -1,21 +1,37 @@
+// @ts-nocheck
+
 import { Link, router } from 'expo-router';
 import { useEffect, useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { Pressable } from 'react-native';
-import { YStack, Spinner, Text, XStack, useMedia, Form, Button, Input, Label } from 'tamagui';
+import { YStack, Spinner, Text, XStack, useMedia, Button, Input, Label } from 'tamagui';
+
+import api from './lib/api';
 
 export default function Page() {
   const media = useMedia();
   const [status, setStatus] = useState('off');
+  const { control, handleSubmit } = useForm({ mode: 'onBlur' });
 
-  useEffect(() => {
-    if (status === 'submitting') {
-      const timer = setTimeout(() => setStatus('off'), 2000);
-      return () => {
-        clearTimeout(timer);
+  const onSubmit = async (data) => {
+    setStatus('submitting');
+    const res = await api
+      .post('/user/login', data, {
+        toastify: true,
+        errorMessage: 'failed to login...',
+        successMessage: 'login successful',
+      })
+      .then((data) => {
+        console.log('ini thenll', data);
         router.push('/(homepage)/');
-      };
-    }
-  }, [status]);
+      })
+      .catch((err) => {
+        console.log('ini err');
+        return err;
+      });
+    setStatus('');
+  };
+
   return (
     <XStack flex={1} ai="center" px="$5" bg="#ffffff" position="relative">
       <YStack
@@ -30,32 +46,53 @@ export default function Page() {
           <Text fontSize={20}>Login into your account</Text>
         </YStack>
         <YStack space="$1" width="100%">
-          <Form onSubmit={() => setStatus('submitting')}>
-            <YStack space="$2" height={100}>
-              <Label color="black" htmlFor="email">
-                Email
-              </Label>
-              <Input color="black" backgroundColor="white" id="email" placeholder="email" />
-            </YStack>
-            <YStack space="$2" height={100}>
-              <Label color="black" htmlFor="password">
-                Password
-              </Label>
-              <Input
-                secureTextEntry
-                color="black"
-                backgroundColor="white"
-                id="password"
-                placeholder="password"
-              />
-            </YStack>
-            <Text textAlign="right" fontWeight="700">
-              Forget password?
-            </Text>
-            <Form.Trigger marginTop="$4" asChild disabled={status !== 'off'}>
-              <Button icon={status === 'submitting' ? () => <Spinner /> : undefined}>Login</Button>
-            </Form.Trigger>
-          </Form>
+          <YStack space="$2" height={100}>
+            <Label color="black" htmlFor="email">
+              Email
+            </Label>
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  value={value}
+                  color="black"
+                  backgroundColor="white"
+                  id="email"
+                  placeholder="email"
+                  onChangeText={(value) => onChange(value)}
+                />
+              )}
+            />
+          </YStack>
+          <YStack space="$2" height={100}>
+            <Label color="black" htmlFor="password">
+              Password
+            </Label>
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  value={value}
+                  secureTextEntry
+                  color="black"
+                  backgroundColor="white"
+                  id="password"
+                  placeholder="password"
+                  onChangeText={(value) => onChange(value)}
+                />
+              )}
+            />
+          </YStack>
+          <Text textAlign="right" fontWeight="700">
+            Forget password?
+          </Text>
+          <Button
+            onPress={handleSubmit(onSubmit)}
+            icon={status === 'submitting' ? () => <Spinner /> : undefined}>
+            Login
+          </Button>
         </YStack>
       </YStack>
       <XStack

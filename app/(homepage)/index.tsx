@@ -11,7 +11,7 @@ export default function TabTwoScreen() {
       justifyContent="flex-start"
       gap="$4">
       <ScrollView px={16} paddingTop="$11">
-        <H6 paddingBottom="$5" color="#969AAB">
+        <H6 paddingBottom="$5" fontWeight="900" color="#969AAB">
           Current Location
         </H6>
         <YStack flex={1} paddingBottom="$12" flexDirection="column" gap="24" ai="flex-start">
