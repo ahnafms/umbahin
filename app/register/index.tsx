@@ -1,20 +1,51 @@
+// @ts-nocheck
 import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { Pressable } from 'react-native';
+import DropdownSelect from 'react-native-input-select';
 import { YStack, Spinner, Text, XStack, useMedia, Form, Button, Input, Label } from 'tamagui';
+
+import api from '../../lib/api';
 
 export default function Page() {
   const media = useMedia();
   const [status, setStatus] = useState('off');
+  const { control, handleSubmit } = useForm({ mode: 'onBlur' });
+  const [isCustomer, setIsCustomer] = useState();
 
-  useEffect(() => {
-    if (status === 'submitting') {
-      const timer = setTimeout(() => setStatus('off'), 2000);
-      return () => {
-        clearTimeout(timer);
-      };
+  const onSubmit = async (data) => {
+    setStatus('submitting');
+    if (isCustomer) {
+      const res = await api
+        .post('/user/register/customer', data, {
+          toastify: true,
+          errorMessage: 'Failed to register!',
+          successMessage: 'Register successful',
+        })
+        .then(() => {
+          router.push('/');
+        })
+        .catch((err) => {
+          return err;
+        });
+    } else {
+      const res = await api
+        .post('/user/register/owner', data, {
+          toastify: true,
+          errorMessage: 'Failed to register!',
+          successMessage: 'Register successful',
+        })
+        .then(() => {
+          router.push('/');
+        })
+        .catch((err) => {
+          return err;
+        });
     }
-  }, [status]);
+    setStatus('');
+  };
+
   return (
     <XStack flex={1} ai="center" px="$5" bg="#ffffff">
       <YStack
@@ -31,30 +62,84 @@ export default function Page() {
         <YStack space="$1" width="100%">
           <Form onSubmit={() => setStatus('submitting')}>
             <YStack space="$2" height={100}>
-              <Label color="black" htmlFor="name_regis">
-                Name
-              </Label>
-              <Input color="black" backgroundColor="white" id="name_regis" placeholder="name" />
-            </YStack>
-            <YStack space="$2" height={100}>
-              <Label color="black" htmlFor="email_regis">
-                Email
-              </Label>
-              <Input color="black" backgroundColor="white" id="email_regis" placeholder="email" />
-            </YStack>
-            <YStack space="$2" height={100}>
-              <Label color="black">Password</Label>
-              <Input
-                secureTextEntry
-                color="black"
-                backgroundColor="white"
-                id="password_regis"
-                placeholder="password"
+              <Label color="black">Name</Label>
+              <Controller
+                control={control}
+                name="name"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    value={value}
+                    color="black"
+                    backgroundColor="white"
+                    autoCapitalize="none"
+                    placeholder="name"
+                    onChangeText={(value) => onChange(value)}
+                  />
+                )}
               />
             </YStack>
-            <Text textAlign="right">Forget your password?</Text>
+            <YStack space="$2" height={100}>
+              <Label color="black" htmlFor="email">
+                Email
+              </Label>
+              <Controller
+                control={control}
+                name="email"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    value={value}
+                    color="black"
+                    backgroundColor="white"
+                    autoCapitalize="none"
+                    placeholder="email"
+                    onChangeText={(value) => onChange(value)}
+                  />
+                )}
+              />
+            </YStack>
+            <YStack space="$2" height={100}>
+              <Label color="black" htmlFor="password">
+                Password
+              </Label>
+              <Controller
+                control={control}
+                name="password"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    value={value}
+                    secureTextEntry
+                    color="black"
+                    backgroundColor="white"
+                    autoCapitalize="none"
+                    placeholder="password"
+                    onChangeText={(value) => onChange(value)}
+                  />
+                )}
+              />
+            </YStack>
+            <YStack space="$2" height={100}>
+              <Label color="black">Role</Label>
+              <DropdownSelect
+                placeholder="Choose your role"
+                options={[
+                  { name: 'Customer', value: true },
+                  { name: 'Owner', value: false },
+                ]}
+                optionLabel="name"
+                optionValue="value"
+                selectedValue={isCustomer}
+                onValueChange={(itemValue: any) => setIsCustomer(itemValue)}
+                dropdownErrorTextStyle={{ color: 'red', fontWeight: '500' }}
+                dropdownStyle={{
+                  height: 10,
+                }}
+                primaryColor="green"
+              />
+            </YStack>
             <Form.Trigger marginTop="$4" asChild disabled={status !== 'off'}>
-              <Button icon={status === 'submitting' ? () => <Spinner /> : undefined}>
+              <Button
+                onPress={handleSubmit(onSubmit)}
+                icon={status === 'submitting' ? () => <Spinner /> : undefined}>
                 Register
               </Button>
             </Form.Trigger>
@@ -70,7 +155,7 @@ export default function Page() {
         bottom="$10"
         justifyContent="center"
         alignItems="center">
-        <Text>Don't have an account?</Text>
+        <Text>Already have an account?</Text>
         <Pressable onPress={() => router.push('/')}>
           <Text fontWeight="bold">Login</Text>
         </Pressable>

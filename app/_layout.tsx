@@ -3,6 +3,7 @@ import { Slot, SplashScreen } from 'expo-router';
 import React, { useEffect } from 'react';
 import { TamaguiProvider } from 'tamagui';
 
+import Notifications from '../components/Toaster';
 import config from '../tamagui.config';
 
 SplashScreen.preventAutoHideAsync();
@@ -28,6 +29,7 @@ export default function RootLayout() {
   return (
     <TamaguiProvider config={config}>
       <Slot />
+      <Notifications />
     </TamaguiProvider>
   );
 }
