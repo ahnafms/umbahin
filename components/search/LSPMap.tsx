@@ -24,24 +24,24 @@ export default function LspMap() {
   });
   const getNearest = async () => {
     const res = await axios.get('https://laundry-app-backend.vercel.app/api/service/lsp');
-    console.log(res.data.data);
     setLsp(res.data.data);
   };
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
+  const [status, requestPermission] = Location.useForegroundPermissions();
 
-      let location = await Location.getCurrentPositionAsync({});
-      if (location) setLocation(location);
-    })();
+  useEffect(() => {
+    if (status && status.status != 'granted') {
+      setErrorMsg('Permission to access location was denied');
+      return;
+    } else {
+      (async () => {
+        let location = await Location.getCurrentPositionAsync({});
+        if (location) setLocation(location);
+      })();
+    }
 
     getNearest();
-  }, []);
+  }, [status]);
 
   let text = 'Waiting..';
   if (errorMsg) {
@@ -64,7 +64,7 @@ export default function LspMap() {
           )}>
           {lsp &&
             lsp.map((data, index) => {
-              if (data.lat) {
+              if (data.lat != null){
                 return (
                   <Marker
                     key={index}
@@ -78,6 +78,17 @@ export default function LspMap() {
                 );
               }
             })}
+            <Marker
+            onPress={() => {
+              console.log(location.coords.latitude, location.coords.longitude)
+            }}
+              coordinate={{
+                latitude: location.coords.latitude ?? 0,
+                longitude: location.coords.longitude ?? 0,
+              }}
+              title={"Home"}
+              description={"Current Location"}
+            />
         </MapView>
       ) : (
         <Text>Identifying current location ...</Text>
