@@ -33,7 +33,7 @@ export default function Page() {
   };
 
   return (
-    <XStack flex={1} ai="center" px="$5" bg="#ffffff" position="relative">
+    <YStack flex={1} justifyContent='center' height="100%" alignItems='center' px="$5" bg="#ffffff" position="relative">
       <YStack
         animation="quick"
         enterStyle={{ scale: 1.2, y: -8, opacity: 0 }}
@@ -100,10 +100,10 @@ export default function Page() {
       <XStack
         gap={5}
         paddingTop={40}
-        position="absolute"
-        left={0}
-        right={0}
-        bottom="$10"
+        // position="absolute"
+        // left={0}
+        // right={0}
+        // bottom="$10"
         justifyContent="center"
         alignItems="center">
         <Text>Don't have an account?</Text>
@@ -113,6 +113,6 @@ export default function Page() {
           </Pressable>
         </Link>
       </XStack>
-    </XStack>
+    </YStack>
   );
 }
