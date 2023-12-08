@@ -1,4 +1,5 @@
 import { View, H5, Text, YStack, XStack, Separator, Circle } from 'tamagui';
+
 export default function CardOrder() {
   return (
     <XStack
@@ -35,25 +36,25 @@ export default function CardOrder() {
         </XStack>
         <Separator borderColor="#9EA2B0" />
         <XStack width="100%" jc="space-between">
-          <XStack ai="center" gap="5">
+          <XStack ai="center" gap={5}>
             <Circle size={14} bc="#34ABEE" />
             <Text fontWeight="700" fontSize={12}>
               Washing
             </Text>
           </XStack>
-          <XStack ai="center" gap="5">
+          <XStack ai="center" gap={5}>
             <Circle size={14} bc="#34ABEE" />
             <Text fontWeight="700" fontSize={12}>
               Cleaning
             </Text>
           </XStack>
-          <XStack ai="center" gap="5">
+          <XStack ai="center" gap={5}>
             <Circle size={14} bc="#34ABEE" />
             <Text fontWeight="700" fontSize={12}>
               Drying
             </Text>
           </XStack>
-          <XStack ai="center" gap="5">
+          <XStack ai="center" gap={5}>
             <Circle size={14} bc="#BABDC8" />
             <Text fontWeight="700" fontSize={12}>
               Deliver
