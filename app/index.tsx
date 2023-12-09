@@ -22,9 +22,14 @@ export default function Page() {
         errorMessage: 'failed to login...',
         successMessage: 'login successful',
       })
-      .then((data) => {
-        setStore('token', data.data.data.token);
-        router.push('/(homepage)/');
+      .then((res) => {
+        setStore('token', res.data.data.token);
+        console.log(res.data)
+        if(res.data.data.role == "OWNER") {
+          router.push('/(homepage)/owner/');
+        } else {
+          router.push('/(homepage)/customer/');
+        }
       })
       .catch((err) => {
         return err;

@@ -1,7 +1,6 @@
-import HomeOwner from '../../../components/owner/Home';
-import { YStack } from 'tamagui';
+import { Text, YStack } from 'tamagui';
 
-export default function IndexOwner() {
+export default function IndexCustomer() {
   return (
     <YStack
       backgroundColor="#EDEFF2"
@@ -9,7 +8,7 @@ export default function IndexOwner() {
       alignItems="flex-start"
       justifyContent="flex-start"
       gap="$4">
-      <HomeOwner />
+      <Text>Customer home page</Text>
     </YStack>
   );
 }
