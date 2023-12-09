@@ -24,8 +24,8 @@ export default function Page() {
       })
       .then((res) => {
         setStore('token', res.data.data.token);
-        console.log(res.data)
-        if(res.data.data.role == "OWNER") {
+        console.log(res.data);
+        if (res.data.data.role == 'OWNER') {
           router.push('/(homepage)/owner/');
         } else {
           router.push('/(homepage)/customer/');
@@ -38,7 +38,14 @@ export default function Page() {
   };
 
   return (
-    <YStack flex={1} justifyContent='center' height="100%" alignItems='center' px="$5" bg="#ffffff" position="relative">
+    <YStack
+      flex={1}
+      justifyContent="center"
+      height="100%"
+      alignItems="center"
+      px="$5"
+      bg="#ffffff"
+      position="relative">
       <YStack
         animation="quick"
         enterStyle={{ scale: 1.2, y: -8, opacity: 0 }}
