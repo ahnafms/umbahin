@@ -1,10 +1,10 @@
-import { XStack, H6, YStack, Text, Image, Theme, ScrollView } from 'tamagui';
-import { Feather } from '@expo/vector-icons';
+import { Feather, Entypo } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-import { Pressable } from 'react-native';
 import { useEffect, useState } from 'react';
+import { Pressable } from 'react-native';
+import { XStack, H6, YStack, Text, Image, Theme, ScrollView } from 'tamagui';
+
 import { getLaundryList } from '../../../lib/store/laundry';
-import { Entypo } from '@expo/vector-icons'; 
 
 export default function HomeCustomer() {
   const [laundry, setLaundry] = useState(null);
@@ -47,14 +47,19 @@ export default function HomeCustomer() {
               <Text marginTop="$4" color="#F2F2F2" fontSize="$7" fontWeight="500">
                 Your clothes will finish in 1 Days
               </Text>
-              <Text
-                marginTop="$4"
-                color="#F2F2F2"
-                fontSize="$5"
-                fontWeight="500"
-                textDecorationLine="underline">
-                View Details
-              </Text>
+
+              <Link href="/(homepage)/customer/orders" asChild>
+                <Pressable>
+                  <Text
+                    marginTop="$4"
+                    color="#F2F2F2"
+                    fontSize="$5"
+                    fontWeight="500"
+                    textDecorationLine="underline">
+                    View Your Orders
+                  </Text>
+                </Pressable>
+              </Link>
             </YStack>
             <YStack flex={1} alignItems="center" justifyContent="center">
               <Image
@@ -80,15 +85,16 @@ export default function HomeCustomer() {
         </XStack>
 
         <XStack>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}> 
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <XStack px="$5" py="$3" marginTop="$2" gap="$3">
-              {laundry && laundry.map((l, idx) => (
-                <CardService
-                  key={idx}
-                  url="https://cirebonberintan.com/wp-content/uploads/2021/11/Layanan-Laundry-AzkhaLaundry-Depok-1000x640.jpg"
-                  name={l.name}
-                />
-              ))}
+              {laundry &&
+                laundry.map((l, idx) => (
+                  <CardService
+                    key={idx}
+                    url="https://cirebonberintan.com/wp-content/uploads/2021/11/Layanan-Laundry-AzkhaLaundry-Depok-1000x640.jpg"
+                    name={l.name}
+                  />
+                ))}
             </XStack>
           </ScrollView>
         </XStack>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { YStack, H6, ScrollView, Text, Spinner } from 'tamagui';
 
-import CardOrder from '../../components/CardOrder';
-import api from '../../lib/api';
+import CardOrder from '../../../components/CardOrder';
+import api from '../../../lib/api';
 
 export default function Orders() {
   const [data, setData] = useState([]);

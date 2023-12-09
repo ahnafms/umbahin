@@ -24,7 +24,6 @@ export default function Page() {
       })
       .then((res) => {
         setStore('token', res.data.data.token);
-        console.log(res.data);
         if (res.data.data.role == 'OWNER') {
           router.push('/(homepage)/owner/');
         } else {
