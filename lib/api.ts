@@ -4,6 +4,8 @@
 import axios from 'axios';
 import toast from 'react-hot-toast/headless';
 
+import { getStore } from './store';
+
 const baseURL = 'https://laundry-app-backend.vercel.app/api';
 
 let toastId;
@@ -21,6 +23,12 @@ const api = axios.create({
 api.defaults.withCredentials = false;
 
 api.interceptors.request.use(async (config) => {
+  const token = await getStore('token');
+
+  if (token) {
+    config.headers.setAuthorization(`Bearer ${token}`);
+  }
+
   if (config.toastify) {
     toastId = toast.loading(config.loadingMessage || 'Loading...', { icon: '👻' });
   }
