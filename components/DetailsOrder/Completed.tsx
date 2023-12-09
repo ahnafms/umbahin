@@ -44,7 +44,7 @@ export default function Completed() {
       <View>
         <Text fontWeight="500">Order has completed.</Text>
         <Text fontWeight="500" textAlign="center">
-          Say what?
+          Wes mari
         </Text>
       </View>
     </YStack>

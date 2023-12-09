@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
 import { YStack, View, Text, XStack, useMedia, Button, Spinner, Dialog } from 'tamagui';
 
+import { getUser } from '../../../lib/store/user.store';
 import Cleaning from '../../../components/DetailsOrder/Cleaning';
 import Deliver from '../../../components/DetailsOrder/Deliver';
 import Drying from '../../../components/DetailsOrder/Drying';
@@ -20,17 +21,9 @@ import Completed from '../../../components/DetailsOrder/Completed';
 
 import api from '../../../lib/api';
 
-const data = {
-  orderCode: '123456',
-  status: 'In Progress',
-  laundrySteps: ['Washing', 'Cleaning', 'Drying', 'Deliver'],
-  timestamp: '2023-12-01 15:30:00',
-  deliveryAddress: '123 Main Street, Cityville',
-  estimatedDeliveryTime: '2023-12-02 10:00:00',
-};
-
 export default function OrderDetailPage() {
   const { index } = useLocalSearchParams();
+  const [isOwner, setIsOwner] = useState();
   const [orderDetails, setOrderDetails] = useState({
     orderCode: '123456',
     status: 'In Progress',
@@ -47,8 +40,8 @@ export default function OrderDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleUpdate = async (status) => {
-    const data = await api
-      .patch(
+    if (isOwner || status === 'COMPLETE') {
+      const data = await api.patch(
         `/order/${index}`,
         { status },
         {
@@ -56,8 +49,8 @@ export default function OrderDetailPage() {
           loadingMessage: 'Updating...',
           successMessage: 'Success!',
         }
-      )
-      .then(() => setData((prev) => ({ ...prev, status })));
+      ).then(() => setData((prev) => ({ ...prev, status })));
+    }
   };
 
   const [open, setOpen] = useState(false);
@@ -78,9 +71,12 @@ export default function OrderDetailPage() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await api.get(`/order/${index}`);
+      const user = await getUser()
+      if (user.role === 'CUSTOMER') setIsOwner(false);
       setData(data.data.data[0]);
       setIsLoading(false);
     };
+
     fetchData();
   }, []);
   return (
@@ -173,6 +169,7 @@ export default function OrderDetailPage() {
             {data.status === 'WASHING' && <Washing />}
             {data.status === 'CLEANING' && <Cleaning />}
             {data.status === 'DRYING' && <Drying />}
+            {data.status === 'DELIVER' && <Deliver />}
             {data.status === 'COMPLETE' && <Completed />}
           </YStack>
           {/* Laundry Steps */}

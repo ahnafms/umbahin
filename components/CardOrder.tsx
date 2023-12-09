@@ -49,10 +49,10 @@ export default function CardOrder({ id, status, name, laundryIn }) {
               <Circle
                 size={14}
                 bc={
-                  status === ('PICKUP' || 'WASHING' || 'CLEANING' || 'DRYING' || 'DELIVER')
+                  ['PICKUP', 'WASHING', 'CLEANING', 'DRYING', 'DELIVER'].includes(status)
                     ? '#34ABEE'
-                    : 'COMPLETE'
-                      ? '#34ABEE'
+                    : status === 'COMPLETE'
+                      ? '#61E6BE'
                       : '#BABDC8'
                 }
               />
@@ -64,10 +64,10 @@ export default function CardOrder({ id, status, name, laundryIn }) {
               <Circle
                 size={14}
                 bc={
-                  status === ('WASHING' || 'CLEANING' || 'DRYING' || 'DELIVER')
+                  ['WASHING', 'CLEANING', 'DRYING', 'DELIVER'].includes(status)
                     ? '#34ABEE'
-                    : 'COMPLETE'
-                      ? '#34ABEE'
+                    : status === 'COMPLETE'
+                      ? '#61E6BE'
                       : '#BABDC8'
                 }
               />
@@ -79,10 +79,10 @@ export default function CardOrder({ id, status, name, laundryIn }) {
               <Circle
                 size={14}
                 bc={
-                  status === ('CLEANING' || 'DRYING' || 'DELIVER')
+                  ['CLEANING', 'DRYING', 'DELIVER'].includes(status)
                     ? '#34ABEE'
-                    : 'COMPLETE'
-                      ? '#34ABEE'
+                    : status === 'COMPLETE'
+                      ? '#61E6BE'
                       : '#BABDC8'
                 }
               />
@@ -94,10 +94,10 @@ export default function CardOrder({ id, status, name, laundryIn }) {
               <Circle
                 size={14}
                 bc={
-                  status === ('DRYING' || 'DELIVER')
+                  ['DRYING', 'DELIVER'].includes(status)
                     ? '#34ABEE'
-                    : 'COMPLETE'
-                      ? '#34ABEE'
+                    : status === 'COMPLETE'
+                      ? '#61E6BE'
                       : '#BABDC8'
                 }
               />
@@ -108,7 +108,13 @@ export default function CardOrder({ id, status, name, laundryIn }) {
             <YStack ai="center" gap={10}>
               <Circle
                 size={14}
-                bc={status === 'DELIVER' ? '#34ABEE' : 'COMPLETE' ? '#34ABEE' : '#BABDC8'}
+                bc={
+                  ['DELIVER'].includes(status)
+                    ? '#34ABEE'
+                    : status === 'COMPLETE'
+                      ? '#61E6BE'
+                      : '#BABDC8'
+                }
               />
               <Text fontWeight="700" fontSize={12}>
                 Deliver
