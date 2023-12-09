@@ -34,7 +34,7 @@ export default function CardOrder({ id, status, name, laundryIn }) {
             <H5 fontWeight="800" color="black">
               {name}
             </H5>
-            <Status />
+            <Status status={status} />
           </XStack>
         </YStack>
         <YStack maxWidth="100%" space="$4">
@@ -51,7 +51,9 @@ export default function CardOrder({ id, status, name, laundryIn }) {
                 bc={
                   status === ('PICKUP' || 'WASHING' || 'CLEANING' || 'DRYING' || 'DELIVER')
                     ? '#34ABEE'
-                    : '#BABDC8'
+                    : 'COMPLETE'
+                      ? '#34ABEE'
+                      : '#BABDC8'
                 }
               />
               <Text fontWeight="700" fontSize={12}>
@@ -64,7 +66,9 @@ export default function CardOrder({ id, status, name, laundryIn }) {
                 bc={
                   status === ('WASHING' || 'CLEANING' || 'DRYING' || 'DELIVER')
                     ? '#34ABEE'
-                    : '#BABDC8'
+                    : 'COMPLETE'
+                      ? '#34ABEE'
+                      : '#BABDC8'
                 }
               />
               <Text fontWeight="700" fontSize={12}>
@@ -74,20 +78,38 @@ export default function CardOrder({ id, status, name, laundryIn }) {
             <YStack ai="center" gap={10}>
               <Circle
                 size={14}
-                bc={status === ('CLEANING' || 'DRYING' || 'DELIVER') ? '#34ABEE' : '#BABDC8'}
+                bc={
+                  status === ('CLEANING' || 'DRYING' || 'DELIVER')
+                    ? '#34ABEE'
+                    : 'COMPLETE'
+                      ? '#34ABEE'
+                      : '#BABDC8'
+                }
               />
               <Text fontWeight="700" fontSize={12}>
                 Cleaning
               </Text>
             </YStack>
             <YStack ai="center" gap={10}>
-              <Circle size={14} bc={status === ('DRYING' || 'DELIVER') ? '#34ABEE' : '#BABDC8'} />
+              <Circle
+                size={14}
+                bc={
+                  status === ('DRYING' || 'DELIVER')
+                    ? '#34ABEE'
+                    : 'COMPLETE'
+                      ? '#34ABEE'
+                      : '#BABDC8'
+                }
+              />
               <Text fontWeight="700" fontSize={12}>
                 Drying
               </Text>
             </YStack>
             <YStack ai="center" gap={10}>
-              <Circle size={14} bc={status === 'DELIVER' ? '#34ABEE' : '#BABDC8'} />
+              <Circle
+                size={14}
+                bc={status === 'DELIVER' ? '#34ABEE' : 'COMPLETE' ? '#34ABEE' : '#BABDC8'}
+              />
               <Text fontWeight="700" fontSize={12}>
                 Deliver
               </Text>

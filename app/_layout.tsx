@@ -1,12 +1,11 @@
 import { useFonts } from 'expo-font';
-import { Slot, SplashScreen } from 'expo-router';
+import { Slot, SplashScreen, router } from 'expo-router';
 import React, { useEffect } from 'react';
 import { TamaguiProvider } from 'tamagui';
 
 import Notifications from '../components/Toaster';
-import config from '../tamagui.config';
-import { router } from 'expo-router';
 import { getUser } from '../lib/store/user.store';
+import config from '../tamagui.config';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,9 +22,9 @@ export default function RootLayout() {
   useEffect(() => {
     (async () => {
       const user = await getUser();
-      console.log(user.role)  
-      if(user.role == "CUSTOMER") router.push('/(homepage)/customer/');
-      else if (user.role == "OWNER") router.push('/(homepage)/owner/');
+      // console.log(user.role)
+      // if(user.role == "CUSTOMER") router.push('/(homepage)/customer/');
+      // else if (user.role == "OWNER") router.push('/(homepage)/owner/');
     })();
 
     if (loaded) {

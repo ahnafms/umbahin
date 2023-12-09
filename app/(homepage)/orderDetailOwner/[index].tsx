@@ -10,13 +10,16 @@ import React, { useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
 import { YStack, View, Text, XStack, useMedia, Button, Spinner, Dialog } from 'tamagui';
 
-import Cleaning from '../../components/DetailsOrder/Cleaning';
-import Deliver from '../../components/DetailsOrder/Deliver';
-import Drying from '../../components/DetailsOrder/Drying';
-import Pickup from '../../components/DetailsOrder/Pickup';
-import Washing from '../../components/DetailsOrder/Washing';
-import Status from '../../components/Status';
-import api from '../../lib/api';
+import Cleaning from '../../../components/DetailsOrder/Cleaning';
+import Deliver from '../../../components/DetailsOrder/Deliver';
+import Drying from '../../../components/DetailsOrder/Drying';
+import Pickup from '../../../components/DetailsOrder/Pickup';
+import Washing from '../../../components/DetailsOrder/Washing';
+import Status from '../../../components/Status';
+import Completed from '../../../components/DetailsOrder/Completed';
+
+import api from '../../../lib/api';
+
 const data = {
   orderCode: '123456',
   status: 'In Progress',
@@ -127,7 +130,7 @@ export default function OrderDetailPage() {
                     w="50%"
                     onPress={() => {
                       if (data.status === 'DELIVER') {
-                        handleUpdate('FINISHED');
+                        handleUpdate('COMPLETE');
                         setOpen(false);
                       }
                     }}>
@@ -149,7 +152,7 @@ export default function OrderDetailPage() {
               h="$size.4"
               borderColor="#F2F2F2"
               noTextWrap
-              onPress={() => router.push('/(homepage)/orders')}
+              onPress={() => router.push('/(homepage)/owner/orders')}
             />
             <Text fontSize={18}>Details Order</Text>
             <Button
@@ -170,7 +173,7 @@ export default function OrderDetailPage() {
             {data.status === 'WASHING' && <Washing />}
             {data.status === 'CLEANING' && <Cleaning />}
             {data.status === 'DRYING' && <Drying />}
-            {data.status === 'DELIVER' && <Deliver />}
+            {data.status === 'COMPLETE' && <Completed />}
           </YStack>
           {/* Laundry Steps */}
           <XStack jc="center" space="$7" pt="$8">
@@ -187,8 +190,7 @@ export default function OrderDetailPage() {
                         borderColor={
                           ['WASHING', 'DRYING', 'DELIVER', 'CLEANING'].includes(data.status)
                             ? '#34ABEE'
-                            : '#B2B5C1'
-                        }
+                            : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
                         borderWidth="$1">
                         <Ionicons
                           name="shirt-outline"
@@ -197,8 +199,7 @@ export default function OrderDetailPage() {
                           color={
                             ['WASHING', 'DRYING', 'DELIVER', 'CLEANING'].includes(data.status)
                               ? '#34ABEE'
-                              : '#B2B5C1'
-                          }
+                              : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
                         />
                         <View>
                           <YStack backgroundColor="white" zIndex={2} p={0} width={30}>
@@ -210,8 +211,7 @@ export default function OrderDetailPage() {
                               color={
                                 ['WASHING', 'DRYING', 'DELIVER', 'CLEANING'].includes(data.status)
                                   ? '#34ABEE'
-                                  : '#B2B5C1'
-                              }
+                                  : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
                             />
                             <MaterialCommunityIcons
                               name="wave"
@@ -220,8 +220,7 @@ export default function OrderDetailPage() {
                               color={
                                 ['WASHING', 'DRYING', 'DELIVER', 'CLEANING'].includes(data.status)
                                   ? '#34ABEE'
-                                  : '#B2B5C1'
-                              }
+                                  : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
                             />
                           </YStack>
                         </View>
@@ -232,8 +231,8 @@ export default function OrderDetailPage() {
                         color={
                           ['WASHING', 'DRYING', 'DELIVER', 'CLEANING'].includes(data.status)
                             ? '#34ABEE'
-                            : '#B2B5C1'
-                        }>
+                            : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
+                      >
                         {step}
                       </Text>
                     </YStack>
@@ -253,8 +252,7 @@ export default function OrderDetailPage() {
                             borderColor={
                               ['DRYING', 'DELIVER', 'CLEANING'].includes(data.status)
                                 ? '#34ABEE'
-                                : '#B2B5C1'
-                            }
+                                : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
                             borderRadius={100}
                             borderWidth="$1">
                             <MaterialCommunityIcons
@@ -264,8 +262,7 @@ export default function OrderDetailPage() {
                               color={
                                 ['DRYING', 'DELIVER', 'CLEANING'].includes(data.status)
                                   ? '#34ABEE'
-                                  : '#B2B5C1'
-                              }
+                                  : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
                             />
                           </View>
                         </YStack>
@@ -276,7 +273,7 @@ export default function OrderDetailPage() {
                         color={
                           ['DRYING', 'DELIVER', 'CLEANING'].includes(data.status)
                             ? '#34ABEE'
-                            : '#B2B5C1'
+                            : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'
                         }>
                         {step}
                       </Text>
@@ -295,8 +292,7 @@ export default function OrderDetailPage() {
                             w={50}
                             h={50}
                             borderColor={
-                              ['DRYING', 'DELIVER'].includes(data.status) ? '#34ABEE' : '#B2B5C1'
-                            }
+                              ['DRYING', 'DELIVER'].includes(data.status) ? '#34ABEE' : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
                             borderRadius={100}
                             borderWidth="$1">
                             <MaterialIcons
@@ -304,8 +300,7 @@ export default function OrderDetailPage() {
                               name="dry-cleaning"
                               size={30}
                               color={
-                                ['DRYING', 'DELIVER'].includes(data.status) ? '#34ABEE' : '#B2B5C1'
-                              }
+                                ['DRYING', 'DELIVER'].includes(data.status) ? '#34ABEE' : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
                             />
                           </View>
                         </YStack>
@@ -313,7 +308,7 @@ export default function OrderDetailPage() {
                       <Text
                         fontWeight="600"
                         textAlign="center"
-                        color={['DRYING', 'DELIVER'].includes(data.status) ? '#34ABEE' : '#B2B5C1'}>
+                        color={['DRYING', 'DELIVER'].includes(data.status) ? '#34ABEE' : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}>
                         {step}
                       </Text>
                     </YStack>
@@ -330,14 +325,14 @@ export default function OrderDetailPage() {
                             flex={1}
                             w={50}
                             h={50}
-                            borderColor={['DELIVER'].includes(data.status) ? '#34ABEE' : '#B2B5C1'}
+                            borderColor={['DELIVER'].includes(data.status) ? '#34ABEE' : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
                             borderRadius={100}
                             borderWidth="$1">
                             <MaterialCommunityIcons
                               m="auto"
                               name="motorbike"
                               size={30}
-                              color={['DELIVER'].includes(data.status) ? '#34ABEE' : '#B2B5C1'}
+                              color={['DELIVER'].includes(data.status) ? '#34ABEE' : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}
                             />
                           </View>
                         </YStack>
@@ -345,7 +340,7 @@ export default function OrderDetailPage() {
                       <Text
                         fontWeight="600"
                         textAlign="center"
-                        color={['DELIVER'].includes(data.status) ? '#34ABEE' : '#B2B5C1'}>
+                        color={['DELIVER'].includes(data.status) ? '#34ABEE' : ['COMPLETE'].includes(data.status) ? '#61e6bd' : '#B2B5C1'}>
                         {step}
                       </Text>
                     </YStack>
@@ -353,7 +348,7 @@ export default function OrderDetailPage() {
                 )}
               </YStack>
             ))}
-          </XStack>
+          </XStack >
           <YStack width="100%" space="$4" p="$2" pt="$7">
             <XStack space="$2" ai="center" jc="space-between">
               <Text fontSize="$7">#{index}</Text>
@@ -363,7 +358,7 @@ export default function OrderDetailPage() {
                 status
               </Text>
               <View w="50%" flex={1} ai="center">
-                <Status />
+                <Status status={data.status} />
               </View>
             </XStack>
             <XStack space="$2" ai="flex-start" jc="flex-start">
@@ -396,8 +391,9 @@ export default function OrderDetailPage() {
           </YStack>
 
           {/* Additional component */}
-        </YStack>
-      )}
+        </YStack >
+      )
+      }
     </>
   );
 }
