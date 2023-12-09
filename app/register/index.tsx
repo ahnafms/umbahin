@@ -47,7 +47,7 @@ export default function Page() {
   };
 
   return (
-    <XStack flex={1} ai="center" px="$5" bg="#ffffff">
+    <XStack flex={1} ai="center" px="$5" bg="#ffffff" >
       <YStack
         animation="quick"
         enterStyle={{ scale: 1.2, y: -8, opacity: 0 }}
