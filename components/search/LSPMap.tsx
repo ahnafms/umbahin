@@ -105,7 +105,7 @@ export default function LspMap() {
         width="100%"
         bg="#ffffff">
         <XStack justifyContent="space-between" flex={1}>
-          <Link href="/(homepage)/" asChild>
+          <Link href="/(homepage)/customer" asChild>
             <Pressable>
               <Ionicons name="arrow-back" size={24} color="black" />
             </Pressable>
