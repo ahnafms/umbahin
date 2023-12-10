@@ -45,11 +45,11 @@ const Toast = ({ t, updateHeight, offset }) => {
           margin: Constants.statusBarHeight + 10,
           backgroundColor: '#000',
           width: 175,
-          // borderRadius: '30px',  
+          borderRadius: '30',
           flexDirection: 'row',
           alignItems: 'center',
           paddingVertical: 8,
-          paddingHorizontal: 12
+          paddingHorizontal: 12,
         }}
         key={t.id}>
         <Text>{t.icon} </Text>

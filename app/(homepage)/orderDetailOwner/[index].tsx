@@ -23,7 +23,7 @@ import api from '../../../lib/api';
 
 export default function OrderDetailPage() {
   const { index } = useLocalSearchParams();
-  const [isOwner, setIsOwner] = useState();
+  const [isOwner, setIsOwner] = useState(true);
   const [orderDetails, setOrderDetails] = useState({
     orderCode: '123456',
     status: 'In Progress',
@@ -57,6 +57,16 @@ export default function OrderDetailPage() {
 
   const originalTimestamp = new Date(data?.laundryIn);
 
+  const redirectPayment = () => {
+    console.log(isOwner)
+    if (isOwner) {
+      router.push(`/(homepage)/orderDetailOwner/barcode/${index}`)
+    }
+    else {
+      router.push(`/(homepage)/orderDetailOwner/scan/${index}`)
+    }
+  }
+
   const options = {
     year: 'numeric',
     month: 'long',
@@ -75,10 +85,11 @@ export default function OrderDetailPage() {
       if (user.role === 'CUSTOMER') setIsOwner(false);
       setData(data.data.data[0]);
       setIsLoading(false);
-    };
+    }
 
     fetchData();
   }, []);
+
   return (
     <>
       {isLoading ? (
@@ -130,7 +141,9 @@ export default function OrderDetailPage() {
                         setOpen(false);
                       }
                     }}>
+                    <Text color='white'>
                     Work > Depo
+                    </Text>
                     <MaterialIcons color="white" name="attach-money" size={24} />
                   </Button>
                 </XStack>
@@ -350,9 +363,6 @@ export default function OrderDetailPage() {
             ))}
           </XStack >
           <YStack width="100%" space="$4" p="$2" pt="$7">
-            <XStack space="$2" ai="center" jc="space-between">
-              <Text fontSize="$7">#{index}</Text>
-            </XStack>
             <XStack space="$2" ai="flex-start" jc="flex-start">
               <Text width="50%" fontSize="$4" fontWeight="600" color="#8A8EA1">
                 status
@@ -385,12 +395,18 @@ export default function OrderDetailPage() {
                 Finish in 1 days
               </Text>
             </XStack>
-            {/* <Text>{`Timestamp: ${orderDetails.timestamp}`}</Text> */}
-            {/* <Text>{`Delivery Address: ${orderDetails.deliveryAddress}`}</Text> */}
-            {/* <Text>{`Estimated Delivery Time: ${orderDetails.estimatedDeliveryTime}`}</Text> */}
+            <XStack space="$2" ai="flex-end" jc="center">
+              <Pressable>
+                <Button
+                  onPress={() => redirectPayment()}
+                  bc='#34ABEE'
+                  w='100%'
+                  h='$3'>
+                  <Text color='white' fontSize="$6">Payment</Text>
+                </Button>
+              </Pressable>
+            </XStack>
           </YStack>
-
-          {/* Additional component */}
         </YStack >
       )
       }
