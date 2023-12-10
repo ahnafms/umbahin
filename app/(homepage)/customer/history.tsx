@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { YStack, H6, ScrollView, Text, Spinner } from 'tamagui';
+import { YStack, H2, ScrollView, Separator, Theme, Spinner, Text, H6 } from 'tamagui';
 
 import CardOrder from '../../../components/CardOrder';
 import api from '../../../lib/api';
 
-export default function Orders() {
+export default function History() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -28,15 +28,12 @@ export default function Orders() {
           alignItems="flex-start"
           justifyContent="flex-start"
           gap="$4">
-          <ScrollView px={16} paddingTop="$11">
-            <H6 paddingBottom="$5" fontWeight="900" color="#969AAB">
-              Order list
-            </H6>
+          <ScrollView p={16} paddingTop="$11">
             <YStack flex={1} paddingBottom="$12" flexDirection="column" gap="24" ai="flex-start">
               {data ? (
                 data.map((item, index) => {
                   return (
-                    item.status !== 'COMPLETE' && (
+                    item.status === 'COMPLETE' && (
                       <CardOrder
                         key={index}
                         id={item.id}
