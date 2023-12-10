@@ -20,6 +20,18 @@ export default function HomeCustomer() {
     <Theme name="light">
       <YStack pt="$11" width="100%" height="100%" bg="$gray3">
         <XStack px="$5" py="$3">
+          <YStack flex={1}>
+              <Text fontSize='$5' color='#929292'>Current Location</Text>
+              <XStack marginTop='$1'>
+                <Entypo name="location-pin" size={24} color='#34ABEF'/>
+                <Text marginStart='$2' fontSize='$6' fontWeight="700">Keputih, Surabaya</Text>
+              </XStack>
+            </YStack>
+            <YStack>
+            <Feather name="bell" size={30}/>
+          </YStack>
+        </XStack>
+        <XStack px="$5" py="$3">
           <XStack flex={1} bg="white" gap={12} padding={12} borderRadius={14}>
             <Feather name="search" size={24} color="gray" />
             <Link href="/search/" asChild>
@@ -121,40 +133,44 @@ const CardService = ({
       padding={4}
       height="$16"
       backgroundColor="#ffffff">
-      <XStack width="$13" height="$12">
-        <Image
-          source={{
-            uri: url,
-          }}
-          style={{
-            width: '100%',
-            height: '100%',
-            borderRadius: 5,
-            overflow: 'hidden',
-          }}
-        />
-      </XStack>
-      <YStack px="$2" paddingVertical="$2">
-        <Text fontWeight="700" fontSize="$5">
-          {name}
-        </Text>
-        <XStack py="$2">
-          <XStack flex={1} gap="$1" alignItems="center">
-            <Entypo name="location-pin" size={17} color="black" />
-            <Text fontSize="$3" fontWeight="500" color="#929292">
-              {distance} m
-            </Text>
+      <Link href="/createOrder/" asChild>
+        <Pressable>
+          <XStack width="$13" height="$12">
+            <Image
+              source={{
+                uri: url,
+              }}
+              style={{
+                width: '100%',
+                height: '100%',
+                borderRadius: 5,
+                overflow: 'hidden',
+              }}
+            />
           </XStack>
-          {/* <XStack>
-          <Text fontSize="$3" fontWeight="600">
-            Rp. 4000
-          </Text>
-          <Text fontSize="$3" fontWeight="600" color="#929292">
-            /kg
-          </Text>
-        </XStack> */}
-        </XStack>
-      </YStack>
+          <YStack px="$2" paddingVertical="$2">
+            <Text fontWeight="700" fontSize="$5">
+              {name}
+            </Text>
+            <XStack py="$2">
+              <XStack flex={1} gap="$1" alignItems="center">
+                <Entypo name="location-pin" size={17} color="black" />
+                <Text fontSize="$3" fontWeight="500" color="#929292">
+                  {distance} m
+                </Text>
+              </XStack>
+              {/* <XStack>
+              <Text fontSize="$3" fontWeight="600">
+                Rp. 4000
+              </Text>
+              <Text fontSize="$3" fontWeight="600" color="#929292">
+                /kg
+              </Text>
+            </XStack> */}
+            </XStack>
+          </YStack>
+        </Pressable>
+      </Link>
     </YStack>
   );
 };

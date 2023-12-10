@@ -27,7 +27,7 @@ export default function Page() {
         if (res.data.data.role == 'OWNER') {
           router.push('/(homepage)/owner/');
         } else {
-          router.push('/(homepage)/customer/');
+          router.push('/(homepage)/customer/home');
         }
       })
       .catch((err) => {
@@ -98,11 +98,12 @@ export default function Page() {
               )}
             />
           </YStack>
-          <Text textAlign="right" mb="$3" fontWeight="700">
+          <Text textAlign="right" mb="$3" color='#34ABEF' fontWeight="700">
             Forget password?
           </Text>
           <Button
             onPress={handleSubmit(onSubmit)}
+            backgroundColor='#34ABEF'
             icon={status === 'submitting' ? () => <Spinner /> : undefined}>
             Login
           </Button>
@@ -120,7 +121,7 @@ export default function Page() {
         <Text>Don't have an account?</Text>
         <Link href="/register/" asChild>
           <Pressable>
-            <Text fontWeight="bold">Register</Text>
+            <Text fontWeight="bold" color='#34ABEF'>Register</Text>
           </Pressable>
         </Link>
       </XStack>
