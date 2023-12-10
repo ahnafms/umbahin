@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import { YStack, H2, Separator, Theme } from 'tamagui';
-
-export default function History() {
-  return (
-    <Theme name="light">
-      <YStack flex={1} alignItems="center" justifyContent="center">
-        <H2>Tab Two</H2>
-        <Separator />
-      </YStack>
-    </Theme>
-=======
 import { useEffect, useState } from 'react';
 import { YStack, H2, ScrollView, Separator, Theme, Spinner, Text, H6 } from 'tamagui';
 
@@ -64,6 +52,5 @@ export default function History() {
         </YStack>
       )}
     </>
->>>>>>> 5fd44a4d84483d1fdaa3bae41475e6a13424a412
   );
 }
