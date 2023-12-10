@@ -9,159 +9,122 @@ import {
   Input,
   Label,
   Spacer,
+  Theme,
+  Image
 } from 'tamagui';
+import { Entypo } from '@expo/vector-icons';
 
 export default function CreateOrderPage() {
   const media = useMedia();
 
-  // Dummy data for the list of items
-  const initialItems = [
-    { name: 'T-Shirt', price: 15, quantity: 2 },
-    { name: 'Jeans', price: 30, quantity: 1 },
-    { name: 'Socks', price: 5, quantity: 3 },
+  const [selectedFeature, setSelectedFeature] = useState('');
+
+  const features = [
+    { id: 1, name: 'Cuci Kering' },
+    { id: 2, name: 'Cuci Basah' },
+    { id: 3, name: 'Cuci Setrika' },
   ];
 
-  const categories = ['Baju', 'Celana', 'Outer'];
-
-  const [order, setOrder] = useState(initialItems);
-  const [totalItems, setTotalItems] = useState(initialItems.length);
-  const [rating, setRating] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState('');
-
-  const addItem = () => {
-    if (selectedCategory) {
-      const newItem = { name: selectedCategory, price: 20, quantity: 1 };
-      setOrder([...order, newItem]);
-      setTotalItems(totalItems + 1);
+  const chooseFeature = (featureId: number) => {
+    const selectedFeature = features.find((feature) => feature.id === featureId);
+    if (selectedFeature) {
+      setSelectedFeature(selectedFeature.name);
     }
   };
 
-  const increaseQuantity = (index) => {
-    const updatedOrder = [...order];
-    updatedOrder[index].quantity += 1;
-    setOrder(updatedOrder);
-  };
-
-  const decreaseQuantity = (index) => {
-    const updatedOrder = [...order];
-    if (updatedOrder[index].quantity > 1) {
-      updatedOrder[index].quantity -= 1;
-      setOrder(updatedOrder);
-    } else {
-      // If quantity is 1, remove the item
-      updatedOrder.splice(index, 1);
-      setOrder(updatedOrder);
-      setTotalItems(totalItems - 1);
-    }
-  };
-
-  const calculateTotal = () => {
-    return order.reduce((total, item) => total + item.price * item.quantity, 0);
+  const submitOrder = () => {
+    // Logic to submit the order
+    console.log('Order submitted!');
   };
 
   return (
-    <XStack flex={1} ai="center" px="$5" bg="#ffffff">
-      <YStack width="100%" space="$4" ai="center">
-        <Text fontWeight="700" fontSize={media.md ? 36 : 18}>
-        Umbahin
-        </Text>
-
-        <XStack width="100%" space="$3">
-  <Form flex={1} width={media.md ? '50%' : '70%'} style={{ minWidth: 200, maxWidth: media.md ? '50%' : '70%' }} onSubmit={() => {}}>
-            <YStack space="$2" width="90%">
-              <Label color="black" htmlFor="locationInput">
-                Location
-              </Label>
-              <Input
-                color="black"
-                backgroundColor="white"
-                id="locationInput"
-                placeholder="Enter your location"
-              />
-            </YStack>
-          </Form>
-
-  <Form flex={1} width={media.md ? '50%' : '70%'} style={{ minWidth: 200, maxWidth: media.md ? '50%' : '70%' }} onSubmit={() => {}}>
-            <YStack space="$2" width="75%">
-              <Label color="black" htmlFor="ratingInput">
-                Rating
-              </Label>
-              <select
-                id="ratingInput"
-                onChange={(e) => setRating(Number(e.target.value))}
-                value={rating}
-      style={{ width: '100%', padding: 13, borderRadius: 5 }}
-              >
-                <option value="1">1 Star</option>
-                <option value="2">2 Stars</option>
-                <option value="3">3 Stars</option>
-                <option value="4">4 Stars</option>
-                <option value="5">5 Stars</option>
-              </select>
-            </YStack>
-          </Form>
+    // <YStack>
+    //   <Text>Select a feature:</Text>
+    //   <XStack>
+    //     {features.map((feature) => (
+    //       <Button key={feature.id} onPress={() => chooseFeature(feature.id)}>
+    //         <Text>{feature.name}</Text>
+    //       </Button>
+    //     ))}
+    //   </XStack>
+    //   <Text>Selected feature: {selectedFeature}</Text>
+    //   <Button onPress={submitOrder}>
+    //     <Text >Submit Order</Text>
+    //   </Button>
+    // </YStack>
+    <Theme name="light">
+      <YStack pt="$11" width="100%" height="100%" bg="$gray3">
+        <XStack px="$5" py="$3" alignContent='center' justifyContent='center'>
+          <Text fontSize={24} fontWeight={700}>
+            Roumah Laundry
+          </Text>
         </XStack>
-
-       <YStack width="100%" space="$4" ai="center">
-  <Form flex={1} width={media.md ? '50%' : '70%'} style={{ minWidth: 200, maxWidth: media.md ? '50%' : '70%'}} onSubmit={() => {}}>
-    <YStack space="$" width="100%">
-      <Label color="black" htmlFor="categoryInput">
-        Category
-      </Label>
-      <select
-        id="categoryInput"
-        onChange={(e) => setSelectedCategory(e.target.value)}
-        value={selectedCategory}
-        style={{ width: '100%', padding: 10 }}
-      >
-        <option value="">Select a category</option>
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
-    </YStack>
-  </Form>
-  <Button onPress={addItem} disabled={!selectedCategory}>
-    Add Category
-  </Button>
-</YStack>
-
-        {/* Order List */}
-        <YStack width="100%" space="$2">
-          {order.map((item, index) => (
-            <YStack key={index} space="$2" width="100%">
-              <Text>{item.name}</Text>
-              <Text>{`Price: $${item.price}`}</Text>
-              <XStack width="100%">
-                <div onClick={() => decreaseQuantity(index)} style={{ cursor: 'pointer' }}>
-                  <Text color="red">-</Text>
-                </div>
-                <Spacer />
-                <Text>{`Quantity: ${item.quantity}`}</Text>
-                <Spacer />
-                <div onClick={() => increaseQuantity(index)} style={{ cursor: 'pointer' }}>
-                  <Text color="green">+</Text>
-                </div>
-              </XStack>
-            </YStack>
+        <XStack px="$5" py="$3">
+          <XStack flex={1} bg="white" gap={2} padding={12} borderRadius={14} alignContent='center'>
+            <Entypo name="location-pin" size={24} color='#34ABEF'/>
+            <Text marginStart='$2' fontSize='$6' color='#929292'>Jl. Sempit</Text>
+          </XStack>
+        </XStack>
+        <XStack height='$15' backgroundColor='#222222' mx='$5' borderRadius={10}>
+          <Image
+            source={{
+              uri: 'https://laundry8plm.b-cdn.net/wp-content/uploads/2023/02/apa-itu-laundry.jpg',
+            }}
+            style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: 10 }}
+            />
+        </XStack>
+        <XStack px="$5" py="$3" mt="$5">
+          <Text fontSize={20} fontWeight={500}>
+            Pilih Layanan
+          </Text>
+        </XStack>
+        <YStack px="$5" py="$3" gap="$2">
+          {features.map((feature) => (
+            <Button 
+              key={feature.id}
+              backgroundColor={
+                (selectedFeature === feature.name) ? '#34ABEF' : '#ffffff'
+              }
+              onPress={(focused) => {
+                chooseFeature(feature.id)
+              }}
+              borderColor={
+                (selectedFeature === feature.name) ? '#34ABEF' : '#ffffff'
+              }>
+              <Text
+                fontWeight={600}
+                color={
+                  (selectedFeature === feature.name) ? '#ffffff' : '#000000'
+                }>{feature.name}</Text>
+            </Button>
           ))}
         </YStack>
-
-        {/* Total Items and Total Price */}
-        <YStack space="$2" width="100%">
-          <Text>{`Total Items: ${totalItems}`}</Text>
-          <Text>{`Total Price: $${calculateTotal()}`}</Text>
+        <YStack px="$5" py="$3" mt="$5" height='100%' backgroundColor='#ffffff'>
+          <XStack mt="$5">
+            <YStack flex={1} gap={2}>
+              <Text fontSize={20}>
+                Berat
+              </Text>
+              <Text fontSize={24} fontWeight={700}>
+                2 Kg
+              </Text>
+            </YStack>
+            <YStack gap={2}>
+              <Text fontSize={20}>
+                Total Harga
+              </Text>
+              <Text fontSize={24} fontWeight={700}>
+                Rp. 4000
+              </Text>
+            </YStack>
+          </XStack>
+          <YStack py="$3" mt="$5">
+          <Button backgroundColor='#34ABEF' onPress={submitOrder}>
+            <Text fontWeight={600} fontSize={20} color='#ffffff'>Pesan Sekarang</Text>
+          </Button>
         </YStack>
-
-        {/* Checkout Button */}
-        <Form width="100%" onSubmit={() => console.log('Checkout clicked')}>
-          <Form.Trigger asChild>
-            <Button>Checkout</Button>
-          </Form.Trigger>
-        </Form>
+        </YStack>
       </YStack>
-    </XStack>
+    </Theme>
   );
 }
