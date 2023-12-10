@@ -21,10 +21,14 @@ export default function HomeCustomer() {
       <YStack pt="$11" width="100%" height="100%" bg="$gray3">
         <XStack px="$5" py="$3">
           <YStack flex={1}>
-            <Text fontSize='$5' color='#929292'>Current Location</Text>
-            <XStack marginTop='$1'>
-              <Entypo name="location-pin" size={24} color='#34ABEF'/>
-              <Text marginStart='$2' fontSize='$6' fontWeight="700">Keputih, Surabaya</Text>
+            <Text fontSize="$5" color="#929292">
+              Current Location
+            </Text>
+            <XStack marginTop="$1">
+              <Entypo name="location-pin" size={24} color="#34ABEF" />
+              <Text marginStart="$2" fontSize="$6" fontWeight="700">
+                Keputih, Surabaya
+              </Text>
             </XStack>
           </YStack>
         </XStack>
@@ -71,7 +75,7 @@ export default function HomeCustomer() {
               </Link>
             </YStack>
             <YStack flex={1} alignItems="center" justifyContent="center">
-              <MaterialIcons name="local-laundry-service" size='100%' color="white" />
+              <MaterialIcons name="local-laundry-service" size={100} color="white" />
             </YStack>
           </XStack>
         </XStack>
@@ -96,9 +100,7 @@ export default function HomeCustomer() {
                 laundry.map((l, idx) => (
                   <CardService
                     key={idx}
-                    url={
-                      ImageService[idx % ImageService.length]
-                    }
+                    url={ImageService[idx % ImageService.length]}
                     name={l.name}
                   />
                 ))}
@@ -116,8 +118,8 @@ const ImageService = [
   'https://sp-ao.shortpixel.ai/client/to_auto,q_lossy,ret_img,w_880/https://www.flokq.com/blog/wp-content/uploads/2022/06/permintaan-jasa-laundry-meningkat-antarafoto.jpg',
   'https://sp-ao.shortpixel.ai/client/to_auto,q_lossy,ret_img,w_600/https://www.flokq.com/blog/wp-content/uploads/2022/06/Memilih-Laundry-Kiloan-Jakarta-Barat-Dengan-Pelayanan-Terbaik.jpg',
   'https://assets.terkini.id/static/media/2023/05/terkiniid_jasa-laundry-terbaik-696x385.jpg',
-  'https://laundry.or.id/wp-content/uploads/2018/03/lor-laundry-hemat-50-persen.jpg'
-]
+  'https://laundry.or.id/wp-content/uploads/2018/03/lor-laundry-hemat-50-persen.jpg',
+];
 const CardService = ({
   url,
   name,

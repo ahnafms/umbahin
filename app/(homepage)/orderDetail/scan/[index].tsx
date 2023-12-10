@@ -29,7 +29,7 @@ export default function Scan() {
             { status: 'WASHING' },
             { toastify: true, successMessage: 'Success payment' }
           )
-          .then(() => router.push(`/(homepage)/orderDetailOwner/${index}`));
+          .then(() => router.push(`/(homepage)/orderDetail/${index}`));
       }
       setScanned(false); // Reset the scanned state back to false
     }

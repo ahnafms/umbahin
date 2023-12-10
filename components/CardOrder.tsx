@@ -19,7 +19,7 @@ export default function CardOrder({ id, status, name, laundryIn }) {
   const formattedDate = date.toLocaleString('id-ID', options);
 
   return (
-    <Pressable onPress={() => router.push(`/orderDetailOwner/${id}`)}>
+    <Pressable onPress={() => router.push(`/orderDetail/${id}`)}>
       <XStack
         justifyContent="center"
         fd="column"

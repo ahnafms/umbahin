@@ -31,7 +31,7 @@ export default function Cleaning() {
     moveToTop();
   }, []);
   return (
-    <YStack ai="center" pt={20} flexDirection="column" gap={20} height={media.md ? '20px' : '10px'}>
+    <YStack ai="center" pt={20} flexDirection="column" gap={20} height={media.md ? '20' : '10'}>
       <YStack ai="center" jc="center" position="relative">
         <View bg="#F5F8FA" w={200} h={200} jc="center" ai="center" borderRadius={100}>
           <Animated.View style={{ transform: [{ translateY }] }}>

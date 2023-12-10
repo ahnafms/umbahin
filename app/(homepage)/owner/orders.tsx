@@ -29,20 +29,21 @@ export default function Orders() {
           justifyContent="flex-start"
           gap="$4">
           <ScrollView px={16} paddingTop="$11">
-            <H6 paddingBottom="$5" fontWeight="900" color="#969AAB">
-              Order list
-            </H6>
             <YStack flex={1} paddingBottom="$12" flexDirection="column" gap="24" ai="flex-start">
               {data ? (
-                data.map((item, index) => (
-                  <CardOrder
-                    key={index}
-                    id={item.id}
-                    name={item.Service.Owner.User.name}
-                    status={item.status}
-                    laundryIn={item.laundryIn}
-                  />
-                ))
+                data.map((item, index) => {
+                  return (
+                    item.status !== 'COMPLETE' && (
+                      <CardOrder
+                        key={index}
+                        id={item.id}
+                        name={item.Service.Owner.User.name}
+                        status={item.status}
+                        laundryIn={item.laundryIn}
+                      />
+                    )
+                  );
+                })
               ) : (
                 <Text>No order yet.</Text>
               )}

@@ -31,12 +31,7 @@ export default function Washing() {
     moveToTop();
   }, []);
   return (
-    <YStack
-      ai="center"
-      pt={20}
-      flexDirection="column"
-      gap={220}
-      height={media.md ? '20px' : '10px'}>
+    <YStack ai="center" pt={20} flexDirection="column" gap={220} height={media.md ? '20' : '10'}>
       <YStack ai="center" jc="center" position="relative">
         <Circle size={200} zIndex={-1} position="absolute" bc="#F5F8FA" top="50%" />
         <View ai="center" top={225 / 8}>
