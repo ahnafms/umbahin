@@ -139,6 +139,7 @@ export default function Page() {
             <Form.Trigger marginTop="$4" asChild disabled={status !== 'off'}>
               <Button
                 onPress={handleSubmit(onSubmit)}
+                backgroundColor='#34ABEF'
                 icon={status === 'submitting' ? () => <Spinner /> : undefined}>
                 Register
               </Button>
@@ -157,7 +158,7 @@ export default function Page() {
         alignItems="center">
         <Text>Already have an account?</Text>
         <Pressable onPress={() => router.push('/')}>
-          <Text fontWeight="bold">Login</Text>
+          <Text fontWeight="bold" color='#34ABEF'>Login</Text>
         </Pressable>
       </XStack>
     </XStack>

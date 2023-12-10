@@ -161,7 +161,10 @@ export default function OrderDetailPage() {
               h="$size.4"
               borderColor="#F2F2F2"
               noTextWrap
-              onPress={() => router.push('/(homepage)/owner/orders')}
+              onPress={() => {
+                if (isOwner) router.push('/(homepage)/owner/orders');
+                else router.push('/(homepage)/customer/orders');
+              }}
             />
             <Text fontSize={18}>Details Order</Text>
             <Button
@@ -389,7 +392,7 @@ export default function OrderDetailPage() {
                 Estimated time
               </Text>
               <Text width="50%" fontSize="$4" textAlign="left" fontWeight="600">
-                Finish in 2 days
+                Finish in 1 days
               </Text>
             </XStack>
             <XStack space="$2" ai="flex-end" jc="center">

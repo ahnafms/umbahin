@@ -1,4 +1,4 @@
-import { Feather, Entypo } from '@expo/vector-icons';
+import { Feather, Entypo, MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
@@ -19,6 +19,15 @@ export default function HomeCustomer() {
   return (
     <Theme name="light">
       <YStack pt="$11" width="100%" height="100%" bg="$gray3">
+        <XStack px="$5" py="$3">
+          <YStack flex={1}>
+            <Text fontSize='$5' color='#929292'>Current Location</Text>
+            <XStack marginTop='$1'>
+              <Entypo name="location-pin" size={24} color='#34ABEF'/>
+              <Text marginStart='$2' fontSize='$6' fontWeight="700">Keputih, Surabaya</Text>
+            </XStack>
+          </YStack>
+        </XStack>
         <XStack px="$5" py="$3">
           <XStack flex={1} bg="white" gap={12} padding={12} borderRadius={14}>
             <Feather name="search" size={24} color="gray" />
@@ -42,7 +51,7 @@ export default function HomeCustomer() {
             shadowRadius={10}>
             <YStack width="60%">
               <Text color="#F2F2F2" fontWeight="300">
-                Rumah Laundry
+                Jaya Makmur Laundry
               </Text>
               <Text marginTop="$4" color="#F2F2F2" fontSize="$7" fontWeight="500">
                 Your clothes will finish in 1 Days
@@ -62,11 +71,7 @@ export default function HomeCustomer() {
               </Link>
             </YStack>
             <YStack flex={1} alignItems="center" justifyContent="center">
-              <Image
-                source={{ uri: 'https://www.svgrepo.com/show/287753/laundry-washer.svg' }}
-                width="100px"
-                height="100px"
-              />
+              <MaterialIcons name="local-laundry-service" size='100%' color="white" />
             </YStack>
           </XStack>
         </XStack>
@@ -91,7 +96,9 @@ export default function HomeCustomer() {
                 laundry.map((l, idx) => (
                   <CardService
                     key={idx}
-                    url="https://cirebonberintan.com/wp-content/uploads/2021/11/Layanan-Laundry-AzkhaLaundry-Depok-1000x640.jpg"
+                    url={
+                      ImageService[idx % ImageService.length]
+                    }
                     name={l.name}
                   />
                 ))}
@@ -103,6 +110,14 @@ export default function HomeCustomer() {
   );
 }
 
+const ImageService = [
+  'https://www.flokq.com/blog/wp-content/uploads/2020/06/juditta-1024x683.jpg',
+  'https://www.flokq.com/blog/wp-content/uploads/2020/06/clop1-1024x1024.jpg',
+  'https://sp-ao.shortpixel.ai/client/to_auto,q_lossy,ret_img,w_880/https://www.flokq.com/blog/wp-content/uploads/2022/06/permintaan-jasa-laundry-meningkat-antarafoto.jpg',
+  'https://sp-ao.shortpixel.ai/client/to_auto,q_lossy,ret_img,w_600/https://www.flokq.com/blog/wp-content/uploads/2022/06/Memilih-Laundry-Kiloan-Jakarta-Barat-Dengan-Pelayanan-Terbaik.jpg',
+  'https://assets.terkini.id/static/media/2023/05/terkiniid_jasa-laundry-terbaik-696x385.jpg',
+  'https://laundry.or.id/wp-content/uploads/2018/03/lor-laundry-hemat-50-persen.jpg'
+]
 const CardService = ({
   url,
   name,
@@ -118,43 +133,47 @@ const CardService = ({
       flexDirection="column"
       justifyContent="space-between"
       borderRadius="$5"
+      width="$15"
       padding={4}
-      height="$16"
       backgroundColor="#ffffff">
-      <XStack width="$13" height="$12">
-        <Image
-          source={{
-            uri: url,
-          }}
-          style={{
-            width: '100%',
-            height: '100%',
-            borderRadius: 5,
-            overflow: 'hidden',
-          }}
-        />
-      </XStack>
-      <YStack px="$2" paddingVertical="$2">
-        <Text fontWeight="700" fontSize="$5">
-          {name}
-        </Text>
-        <XStack py="$2">
-          <XStack flex={1} gap="$1" alignItems="center">
-            <Entypo name="location-pin" size={17} color="black" />
-            <Text fontSize="$3" fontWeight="500" color="#929292">
-              {distance} m
-            </Text>
+      <Link href="/createOrder/" asChild>
+        <Pressable>
+          <XStack width="100%" height="$12">
+            <Image
+              source={{
+                uri: url,
+              }}
+              style={{
+                width: '100%',
+                height: '100%',
+                borderRadius: 5,
+                overflow: 'hidden',
+              }}
+            />
           </XStack>
-          {/* <XStack>
-          <Text fontSize="$3" fontWeight="600">
-            Rp. 4000
-          </Text>
-          <Text fontSize="$3" fontWeight="600" color="#929292">
-            /kg
-          </Text>
-        </XStack> */}
-        </XStack>
-      </YStack>
+          <YStack px="$2" paddingVertical="$2">
+            <Text fontWeight="700" fontSize="$5">
+              {name}
+            </Text>
+            <XStack py="$2">
+              <XStack flex={1} gap="$1" alignItems="center">
+                <Entypo name="location-pin" size={17} color="black" />
+                <Text fontSize="$3" fontWeight="500" color="#929292">
+                  {distance} m
+                </Text>
+              </XStack>
+              {/* <XStack>
+              <Text fontSize="$3" fontWeight="600">
+                Rp. 4000
+              </Text>
+              <Text fontSize="$3" fontWeight="600" color="#929292">
+                /kg
+              </Text>
+            </XStack> */}
+            </XStack>
+          </YStack>
+        </Pressable>
+      </Link>
     </YStack>
   );
 };
