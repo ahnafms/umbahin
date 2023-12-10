@@ -20,12 +20,12 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    (async () => {
-      const user = await getUser();
-      // console.log(user.role)
-      // if(user.role == "CUSTOMER") router.push('/(homepage)/customer/');
-      // else if (user.role == "OWNER") router.push('/(homepage)/owner/');
-    })();
+    // (async () => {
+    //   // const user = await getUser();
+    //   // console.log(user.role)
+    //   // if(user.role == "CUSTOMER") router.push('/(homepage)/customer/');
+    //   // else if (user.role == "OWNER") router.push('/(homepage)/owner/');
+    // })();
 
     if (loaded) {
       SplashScreen.hideAsync();

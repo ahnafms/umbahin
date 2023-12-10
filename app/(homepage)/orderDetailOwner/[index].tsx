@@ -20,6 +20,7 @@ import Status from '../../../components/Status';
 import Completed from '../../../components/DetailsOrder/Completed';
 
 import api from '../../../lib/api';
+import { Link } from 'expo-router';
 
 export default function OrderDetailPage() {
   const { index } = useLocalSearchParams();
@@ -75,10 +76,11 @@ export default function OrderDetailPage() {
       if (user.role === 'CUSTOMER') setIsOwner(false);
       setData(data.data.data[0]);
       setIsLoading(false);
-    };
+    }
 
     fetchData();
   }, []);
+
   return (
     <>
       {isLoading ? (
@@ -130,7 +132,9 @@ export default function OrderDetailPage() {
                         setOpen(false);
                       }
                     }}>
+                    <Text color='white'>
                     Work > Depo
+                    </Text>
                     <MaterialIcons color="white" name="attach-money" size={24} />
                   </Button>
                 </XStack>
@@ -347,9 +351,6 @@ export default function OrderDetailPage() {
             ))}
           </XStack >
           <YStack width="100%" space="$4" p="$2" pt="$7">
-            <XStack space="$2" ai="center" jc="space-between">
-              <Text fontSize="$7">#{index}</Text>
-            </XStack>
             <XStack space="$2" ai="flex-start" jc="flex-start">
               <Text width="50%" fontSize="$4" fontWeight="600" color="#8A8EA1">
                 status
@@ -381,6 +382,13 @@ export default function OrderDetailPage() {
               <Text width="50%" fontSize="$4" textAlign="left" fontWeight="600">
                 Finish in 2 days
               </Text>
+            </XStack>
+            <XStack space="$2" ai="flex-end" jc="center">
+              <Button bc='#34ABEE' w='100%' h='$3'>
+                <Link href={`/(homepage)/orderDetailOwner/barcode/${index}`}>
+                  <Text color='white' fontSize="$6">Payment</Text>
+                </Link>
+              </Button>
             </XStack>
             {/* <Text>{`Timestamp: ${orderDetails.timestamp}`}</Text> */}
             {/* <Text>{`Delivery Address: ${orderDetails.deliveryAddress}`}</Text> */}
