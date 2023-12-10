@@ -20,11 +20,10 @@ import Status from '../../../components/Status';
 import Completed from '../../../components/DetailsOrder/Completed';
 
 import api from '../../../lib/api';
-import { Link } from 'expo-router';
 
 export default function OrderDetailPage() {
   const { index } = useLocalSearchParams();
-  const [isOwner, setIsOwner] = useState();
+  const [isOwner, setIsOwner] = useState(true);
   const [orderDetails, setOrderDetails] = useState({
     orderCode: '123456',
     status: 'In Progress',
@@ -57,6 +56,16 @@ export default function OrderDetailPage() {
   const [open, setOpen] = useState(false);
 
   const originalTimestamp = new Date(data?.laundryIn);
+
+  const redirectPayment = () => {
+    console.log(isOwner)
+    if (isOwner) {
+      router.push(`/(homepage)/orderDetailOwner/barcode/${index}`)
+    }
+    else {
+      router.push(`/(homepage)/orderDetailOwner/scan/${index}`)
+    }
+  }
 
   const options = {
     year: 'numeric',
@@ -384,18 +393,17 @@ export default function OrderDetailPage() {
               </Text>
             </XStack>
             <XStack space="$2" ai="flex-end" jc="center">
-              <Button bc='#34ABEE' w='100%' h='$3'>
-                <Link href={`/(homepage)/orderDetailOwner/barcode/${index}`}>
+              <Pressable>
+                <Button
+                  onPress={() => redirectPayment()}
+                  bc='#34ABEE'
+                  w='100%'
+                  h='$3'>
                   <Text color='white' fontSize="$6">Payment</Text>
-                </Link>
-              </Button>
+                </Button>
+              </Pressable>
             </XStack>
-            {/* <Text>{`Timestamp: ${orderDetails.timestamp}`}</Text> */}
-            {/* <Text>{`Delivery Address: ${orderDetails.deliveryAddress}`}</Text> */}
-            {/* <Text>{`Estimated Delivery Time: ${orderDetails.estimatedDeliveryTime}`}</Text> */}
           </YStack>
-
-          {/* Additional component */}
         </YStack >
       )
       }

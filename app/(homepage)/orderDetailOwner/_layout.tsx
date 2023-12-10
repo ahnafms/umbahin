@@ -17,6 +17,13 @@ export default function Layout() {
           headerTitle: 'Payment Barcode',
         }}
       />
+      <Stack.Screen
+        name="scan/[index]"
+        options={{
+          // Hide the header for all other routes.
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
