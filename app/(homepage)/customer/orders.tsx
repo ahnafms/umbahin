@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { YStack, H6, ScrollView, Text, Spinner } from 'tamagui';
+import { YStack, H6, ScrollView, Text, Spinner, XStack } from 'tamagui';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import CardOrder from '../../../components/CardOrder';
 import api from '../../../lib/api';
@@ -29,9 +30,6 @@ export default function Orders() {
           justifyContent="flex-start"
           gap="$4">
           <ScrollView px={16} paddingTop="$11">
-            <H6 paddingBottom="$5" fontWeight="900" color="#969AAB">
-              Order list
-            </H6>
             <YStack flex={1} paddingBottom="$12" flexDirection="column" gap="24" ai="flex-start">
               {data ? (
                 data.map((item, index) => (
