@@ -75,7 +75,7 @@ export default function HomeCustomer() {
               </Link>
             </YStack>
             <YStack flex={1} alignItems="center" justifyContent="center">
-              <MaterialIcons name="local-laundry-service" size={100} color="white" />
+              <MaterialIcons name="local-laundry-service" size={128} color="white" />
             </YStack>
           </XStack>
         </XStack>
@@ -102,6 +102,7 @@ export default function HomeCustomer() {
                     key={idx}
                     url={ImageService[idx % ImageService.length]}
                     name={l.name}
+                    id={l.id}
                   />
                 ))}
             </XStack>
@@ -124,10 +125,12 @@ const CardService = ({
   url,
   name,
   distance = 200,
+  id
 }: {
   url: string;
   name: string;
   distance?: number;
+  id : string
 }) => {
   return (
     <YStack
@@ -138,7 +141,7 @@ const CardService = ({
       width="$15"
       padding={4}
       backgroundColor="#ffffff">
-      <Link href="/createOrder/" asChild>
+      <Link href={"/(homepage)/createOrder/" + id} asChild>
         <Pressable>
           <XStack width="100%" height="$12">
             <Image
