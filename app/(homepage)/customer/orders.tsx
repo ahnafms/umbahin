@@ -4,16 +4,19 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import CardOrder from '../../../components/CardOrder';
 import api from '../../../lib/api';
+import { Link } from 'expo-router';
 
 export default function Orders() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const fetchData = async () => {
+    const data = await api.get('/order');
+    setData(data.data.data);
+    console.log(data.data.data)
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await api.get('/order');
-      setData(data.data.data);
-      setIsLoading(false);
-    };
     fetchData();
   }, []);
   return (
@@ -30,7 +33,7 @@ export default function Orders() {
           justifyContent="flex-start"
           gap="$4">
           <ScrollView px={16} paddingTop="$11">
-            <YStack flex={1} paddingBottom="$12" flexDirection="column" gap="24" ai="flex-start">
+            <YStack flex={1} paddingBottom="$12" flexDirection="column" gap={24} ai="flex-start">
               {data ? (
                 data.map((item, index) => {
                   return (
