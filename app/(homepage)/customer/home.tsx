@@ -75,7 +75,7 @@ export default function HomeCustomer() {
               </Link>
             </YStack>
             <YStack flex={1} alignItems="center" justifyContent="center">
-              <MaterialIcons name="local-laundry-service" size={100} color="white" />
+              <MaterialIcons name="local-laundry-service" size={128} color="white" />
             </YStack>
           </XStack>
         </XStack>
