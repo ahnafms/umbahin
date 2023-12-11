@@ -19,6 +19,7 @@
     "@tamagui/shorthands": "1.74.8",
     "@tamagui/themes": "1.74.8",
     "axios": "^1.6.2",
+    "eas-cli": "^5.9.1",
     "expo": "~49.0.11",
     "expo-barcode-scanner": "~12.5.3",
     "expo-font": "~11.4.0",

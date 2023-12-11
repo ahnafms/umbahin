@@ -29,12 +29,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-       "config": {
+      "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "bundleIdentifier": "com.reynoldputra.umbahin"
     },
     "android": {
       "adaptiveIcon": {
@@ -45,6 +48,20 @@
         "googleMaps": {
           "apiKey": "AIzaSyC8vh1bHP1SxfBjPkuCABKsYZ-mKlfMY78"
         }
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.FOREGROUND_SERVICE"
+      ],
+      "package": "com.reynoldputra.umbahin"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ef4e6313-b68d-4ab6-a62b-0001faf2975f"
       }
     }
   }

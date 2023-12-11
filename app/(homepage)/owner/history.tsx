@@ -29,7 +29,7 @@ export default function History() {
           justifyContent="flex-start"
           gap="$4">
           <ScrollView p={16} paddingTop="$11">
-            <YStack flex={1} paddingBottom="$12" flexDirection="column" gap="24" ai="flex-start">
+            <YStack flex={1} paddingBottom="$12" flexDirection="column" gap={24} ai="flex-start">
               {data ? (
                 data.map((item, index) => {
                   return (
